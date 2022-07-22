@@ -29,10 +29,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.red,
         centerTitle: true,
         title: const Text(
-          'Login',
+          'Đăng nhập',
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -42,14 +42,37 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea (
         child: ListView(
           children: <Widget>[
-            const SizedBox(height: 30),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 60),
+              height: 200.0,
+              width: 30.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      'assets/img/LogoTNTT.PNG'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+            Center(
+              child: Text('Thiếu Nhi Thánh Thể', style: (TextStyle(fontSize: 25, fontWeight: FontWeight.bold))),
+            ),
+            const SizedBox(height: 5),
+            Center(
+              child: Text('Xứ đoàn Teresa Hài đồng Giê-su', style: (TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+            ),
+            const SizedBox(height: 13),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
                 controller: username,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Username',
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 3, color: Colors.red),
+                  ),
+                  hintText: 'Tên đăng nhập',
                 ),
               ),
             ),
@@ -60,8 +83,10 @@ class _LoginPageState extends State<LoginPage> {
                   controller: password,
                   obscureText: true,
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 3, color: Colors.red),
+                    ),
+                    labelText: 'Mật khẩu',
                   ),
                 )
             ),
@@ -69,30 +94,45 @@ class _LoginPageState extends State<LoginPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               ElevatedButton.icon(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 15)
+                      textStyle: const TextStyle(fontSize: 15, color: Colors.yellow),
+                      primary: Colors.red,
+                      onPrimary: Colors.yellow,
                     ),
                     icon: const Icon(Icons.lock_open),
                     onPressed: ()  async {
                       authFireStore.logIn(username.text, password.text, context);
                     },
-                    label: const Text('Login'),
+                    label: const Text('Đăng nhập'),
+                    ),
 
-                  ),
-                const SizedBox(width: 5),
-                TextButton(onPressed: (){}, child: const Text('Forgot password ?')),
-                const SizedBox(width: 5),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 15)
-                  ),
-                  icon: const Icon(Icons.create),
-                  onPressed: ()  async {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SignUpPage()));
-                  },
-                  label: const Text('Sign Up'),
+                    const SizedBox(width: 20),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 15),
+                        primary: Colors.red,
+                        onPrimary: Colors.yellow,
+                      ),
+                      icon: const Icon(Icons.create),
+                      onPressed: ()  async {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const SignUpPage()));
+                      },
+                      label: const Text(' Đăng ký    '),
 
+                    ),
+                  ]
+                ),
+
+                TextButton(
+                  onPressed: (){},
+                  style: TextButton.styleFrom(
+                    primary: Colors.redAccent, // Text Color
+                  ),
+                  child: const Text('Quên mật khẩu ?'),
                 ),
               ],
             ),

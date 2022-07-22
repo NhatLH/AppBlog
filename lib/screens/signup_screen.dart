@@ -41,19 +41,46 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        centerTitle: true,
+        title: const Text(
+          'Đăng nhập',
+          style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.yellowAccent),
+        ),
+      ),
       body: Container(
         alignment: Alignment.center,
         child: ListView (
               children: <Widget>[
-                const SizedBox(height: 40),
-                const Text('SIGN UP', style: TextStyle(fontSize: 40)),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 60),
+                  height: 200.0,
+                  width: 30.0,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/img/LogoTNTT.PNG'),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Center(
+                  child: Text('Đăng ký tham gia xứ đoàn', style: (TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+                ),
                  Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                   child: TextField(
                     controller: name,
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Name',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 3, color: Colors.red),
+                      ),
+                      hintText: 'Tên',
                     ),
                   ),
                 ),
@@ -62,8 +89,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: TextField(
                     controller: username,
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Username',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 3, color: Colors.red),
+                      ),
+                      hintText: 'Tên đăng nhập',
                     ),
                   ),
                 ),
@@ -73,8 +102,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: password,
                       obscureText: true,
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 3, color: Colors.red),
+                        ),
+                        labelText: 'Mật khẩu',
                       ),
                     )
                 ),
@@ -84,8 +115,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: cf_password,
                       obscureText: true,
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Confirm Password',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 3, color: Colors.red),
+                        ),
+                        labelText: 'Xác thực mật khẩu',
                       ),
                     )
                 ),
@@ -94,7 +127,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 15)
+                        textStyle: const TextStyle(fontSize: 15),
+                        primary: Colors.red,
+                        onPrimary: Colors.yellow,
                       ),
                       icon: const Icon(Icons.lock_open),
                       onPressed: ()  async {
@@ -111,7 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             context: context,
                             builder: (BuildContext context) {
                               return const AlertDialog(
-                                title: Text('Successfull',style: TextStyle(fontSize: 10, color: Colors.redAccent)),
+                                title: Text('Thành công',style: TextStyle(fontSize: 10, color: Colors.redAccent)),
                                 backgroundColor: Colors.yellow,
                               );
                             },
@@ -123,24 +158,27 @@ class _SignUpPageState extends State<SignUpPage> {
                             context: context,
                             builder: (BuildContext context) {
                               return const AlertDialog(
-                                title: Text('Fail Sign Up',style: TextStyle(fontSize: 10, color: Colors.redAccent)),
+                                title: Text('Mật khẩu nhập lại không đúng',style: TextStyle(fontSize: 10, color: Colors.redAccent)),
                                 backgroundColor: Colors.yellow,
                               );
                             },
                           );
                         }
                       },
-                      label: const Text('Sign Up'),
+                      label: const Text('Đăng ký'),
 
                     ),
 
-                    const Text('I have an account ?'),
+                    const Text('Bạn đã có mật khẩu ?'),
                     const SizedBox(width: 5),
                     TextButton(
                       onPressed: (){
                         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginPage()));
                       },
-                      child: const Text('Login now')
+                      style: TextButton.styleFrom(
+                        primary: Colors.redAccent, // Text Color
+                      ),
+                      child: const Text('Đăng nhập ngay')
                     )
                   ],
                 ),

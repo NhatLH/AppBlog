@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebaseapp/models/auth_firestore.dart';
+import 'package:firebaseapp/screens/home_blog_screen.dart';
 import 'package:firebaseapp/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget{
+class ProfilePage extends StatefulWidget{
   static late String currentID;
   @override
-  State<HomePage>createState() => _HomePageState();
+  State<ProfilePage>createState() => _ProfilePageState();
 
   static void setCurrentID(doc) {
     currentID = doc;
@@ -17,12 +17,12 @@ class HomePage extends StatefulWidget{
   }
 }
 
-class  _HomePageState extends State<HomePage>{
+class  _ProfilePageState extends State<ProfilePage>{
   var userI4 = {};
   Future getInformation() async {
     FirebaseFirestore.instance.collection('user').get().then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
-        if (doc['id'] == HomePage.getCurrentID().trim()) {
+        if (doc['id'] == ProfilePage.getCurrentID().trim()) {
           setState(() {
             userI4 = {
               'id': doc['id'],
@@ -42,7 +42,7 @@ class  _HomePageState extends State<HomePage>{
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('Trang cá nhân', style: TextStyle(color: Colors.yellow)),
         centerTitle: true,
         backgroundColor: Colors.red,
         elevation: 0.0,
@@ -88,7 +88,7 @@ class  _HomePageState extends State<HomePage>{
                 ),
                 const Center(
                   child: Text(
-                    'HUYNH TRUONG',
+                    'HUYNH TRƯỞNG',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class  _HomePageState extends State<HomePage>{
                 ),
                 const SizedBox(height: 30.0),
                 const Text(
-                  'Name: ',
+                  'Họ và Tên: ',
                   style: const TextStyle(
                     color: Colors.grey,
                     letterSpacing: 2.0,
@@ -125,7 +125,7 @@ class  _HomePageState extends State<HomePage>{
                 ),
                 const SizedBox(height: 10.0),
                 Text(
-                  '${HomePage.getCurrentID()}',
+                  '${ProfilePage.getCurrentID()}',
                   style: TextStyle(
                       color: Colors.amberAccent[200],
                       letterSpacing: 2.0,
@@ -135,7 +135,7 @@ class  _HomePageState extends State<HomePage>{
                 ),
                 const SizedBox(height: 30.0),
                 const Text(
-                  "Username: ",
+                  "Tên đăng nhập: ",
                   style: TextStyle(
                     color: Colors.grey,
                     letterSpacing: 2.0,
@@ -219,6 +219,7 @@ class  _HomePageState extends State<HomePage>{
               icon: const Icon(Icons.home),
               color: Colors.black,
               onPressed: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeBlog()));
               },
             ),
             IconButton(

@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebaseapp/Components/user_class.dart';
-import 'package:firebaseapp/screens/Home.dart';
+import 'package:firebaseapp/screens/Profile.dart';
 import 'package:flutter/material.dart';
+import 'package:firebaseapp/screens/home_blog_screen.dart';
 class AuthFireStore {
   final db = FirebaseFirestore.instance;
 
@@ -24,9 +25,9 @@ class AuthFireStore {
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
           if (doc['username'] == username && doc['password'] == password) {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeBlog(),
             ));
-            HomePage.setCurrentID(doc['id']);
+            ProfilePage.setCurrentID(doc['id']);
           }
         }
       }
